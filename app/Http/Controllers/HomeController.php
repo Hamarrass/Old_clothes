@@ -27,9 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        dd('okay  go to the controller directly to HomeCOntroller you will find me  don\'t worry okay');
-//        $images = InfoPositionVendeur::with('information_vendeurs')->where('user_id',Auth::user()->id)->get();
-//        return view('informationvendeur',compact('images'));
+
 
 
         return view('informationclient');
