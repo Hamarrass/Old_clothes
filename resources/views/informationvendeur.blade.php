@@ -80,6 +80,7 @@
 
                                             </form>
                                             <button class="btn btn-danger btn-block mt-4" id="update"  style=" display: none;" >Update </button>
+
                                             <br><bR>
                                         @foreach ($images as $image)
                                                 <table class="table table-sm">
@@ -101,14 +102,22 @@
                                                     </tr>
                                                     <tr>
                                                         <td>   </td>
-                                                        <td>   </td>
-                                                        <td><button type="button"  id="" class="edit badge badge-secondary" data-id="{{$image->id}}" >  Modify</button>
+                                                        <td>  <button type="button"  id="" class="edit badge badge-secondary" data-id="{{$image->id}}" >  Modify</button>  </td>
+                                                        <td>
+                                                            <form action="{{route('infopositionvendeurs.destroy' ,["infopositionvendeur"=>$image->id])}}"   METHOD="POST">
+                                                                @csrf
+                                                                @method('delete')
+
+                                                                <button type="submit"  class=" badge badge-danger"  >  delete</button>
+                                                            </form>
+
                                                         </td>
                                                     </tr>
+
                                                     </tbody>
                                                 </table>
                                             @foreach ($image->information_vendeurs()->get() as $im)
-                                                       
+
                                                             <img src="{{$im->image_path}}" alt="" width="49.7%" height="180">
 
                                              @endforeach

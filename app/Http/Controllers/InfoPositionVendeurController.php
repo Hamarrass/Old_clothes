@@ -125,8 +125,11 @@ class InfoPositionVendeurController extends Controller
      * @param  \App\InfoPositionVendeur  $infoPositionVendeur
      * @return \Illuminate\Http\Response
      */
-    public function destroy(InfoPositionVendeur $infoPositionVendeur)
+    public function destroy($infoPositionVendeur)
     {
-        //
+//        dd($infoPositionVendeur);
+        InfoPositionVendeur::destroy($infoPositionVendeur);
+
+        return  redirect()->back();
     }
 }

@@ -37,6 +37,7 @@ $app->singleton(
 );
 
 $app->singleton(
+//this is me hassan hamarrass 0657114014
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
 );
