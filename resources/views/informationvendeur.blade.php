@@ -37,14 +37,19 @@
                                             </ul>
                                         </div>
                                     @endif
-    <div class="col-*-*"><a href="{{route('map.index')}}" class="link"> Click here to show a map </a></div>
+                                  <div class="col-*-*">
+                                      <a href="{{route('map.index')}}" class="link btn btn-danger" > Click here to show a map </a>
+                                      <a href="{{route('archive')}}" class="link btn btn-danger"> Archive      </a>
+                                      <a href="{{route('allinfoposition')}}" class="link btn btn-danger"> ALL  </a>
+                                      <p>{{$images->count()}}</p>
+                                  </div>
 {{--                                        **********************************************************start formulaire *************************************************************--}}
                                         <div class="container">
                                             <br>
                                             <form id="form" action="{{route('infopositionvendeurs.store')}}" METHOD="POST"   enctype="multipart/form-data" >
                                                 @csrf
                                                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-                                                <input type="text"  id="id" value="">
+{{--                                                <input type="hidden"  id="id" value="">--}}
                                                 <div class="form-group">
                                                     <label for="ville">ville</label>
                                                     <input type="text" class="form-control" id="ville" name="ville" placeholder="ville" required  value="{{old('ville')}}">
@@ -72,7 +77,7 @@
                                                 </div>
 
                                                 <div class="custom-file">
-                                                    <input type="file" name="imageFile[]" class="custom-file-input" id="images" multiple="multiple" value="{{old('imageFile')}}">
+                                                    <input type="file" name="imageFile[]" class="custom-file-input" id="images" multiple="multiple" >
                                                     <label class="custom-file-label" for="images">Choose image</label>
                                                 </div>
                                                 @if(session()->has('statut')) <span style="color:green">Tres bien enrigestrer </span> @endif
@@ -118,11 +123,13 @@
                                                 </table>
                                             @foreach ($image->information_vendeurs()->get() as $im)
 
-                                                            <img src="{{$im->image_path}}" alt="" width="49.7%" height="180">
+                                                 <img src="{{$im->image_path}}" alt="" width="49.6%" height="180">
 
                                              @endforeach
+
                                               <br><br>
                                             <hr  style="height:2px ; background-color: grey ; width:50%">
+
                                           @endforeach
 
                                         </div>
@@ -140,12 +147,8 @@
 
 @endsection
 
-@section('css')
-    <style>
+@section('jsinfovendeur')
 
-    </style>
- @endsection
-@section('js')
     <script>
         (function() {
             "use strict"
@@ -172,9 +175,7 @@
         // show what you want to ubdate
         $(document).on('click', '.edit', function(){
 
-
             var data_id = $(this).data('id');
-
             var url     ="{{route('infopositionvendeurs.edit',['infopositionvendeur'=>'id'])}}";
             url     =url.replace('id',data_id);
             $('#edit').css("display", "none");
@@ -241,7 +242,7 @@
 
                         reader.onload = function(event) {
                             $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
-                            ;
+
                         }
 
                         reader.readAsDataURL(input.files[i]);
@@ -257,6 +258,5 @@
 
 
     </script>
-
 @endsection
 

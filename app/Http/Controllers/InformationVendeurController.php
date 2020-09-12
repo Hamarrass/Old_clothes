@@ -11,7 +11,7 @@ class InformationVendeurController extends Controller
 {
 
     public function __construct(){
-        $this->middleware("auth")->except('create');
+        $this->middleware("auth");
     }
 
 
@@ -23,7 +23,7 @@ class InformationVendeurController extends Controller
     public function index()
     {
 
-        $images = InfoPositionVendeur::with('information_vendeurs')->where('user_id',Auth::user()->id)->get();
+        $images = InfoPositionVendeur::where('user_id',Auth::user()->id)->get();
         return view('informationvendeur',compact('images'));
     }
     /**
@@ -84,7 +84,8 @@ class InformationVendeurController extends Controller
      */
     public function edit(InformationVendeur $infomrationClient)
     {
-        //
+        InformationVendeur::destroy($infomrationClient);
+        return  redirect()->back();
     }
 
     /**
@@ -108,5 +109,18 @@ class InformationVendeurController extends Controller
     public function destroy(InformationVendeur $infomrationClient)
     {
         //
+    }
+
+    public function archive()
+    {
+        $images = InfoPositionVendeur::onlyTrashed()->where('user_id', Auth::user()->id)->get();
+           return view('informationvendeur' , compact('images'));
+    }
+
+
+    public function allinfoposition()
+    {
+        $images = InfoPositionVendeur::withTrashed()->where('user_id', Auth::user()->id)->get();
+            return view('informationvendeur' , compact('images'));
     }
 }
