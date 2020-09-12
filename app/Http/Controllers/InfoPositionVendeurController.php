@@ -132,9 +132,11 @@ class InfoPositionVendeurController extends Controller
 
         return  redirect()->back();
     }
-//    public function restore($id){
-//        $infovendeur=InformationVendeur::find($id);
-//        $infovendeur->restore();
-//        return  redirect()->back();
-//    }
+    public function restore($id){
+
+        dd('okay');
+        $infovendeur=InformationVendeur::find($id);
+        $infovendeur->restore();
+        return  redirect()->back();
+    }
 }

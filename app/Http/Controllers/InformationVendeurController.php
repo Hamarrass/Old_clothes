@@ -23,7 +23,7 @@ class InformationVendeurController extends Controller
     public function index()
     {
 
-        $images = InfoPositionVendeur::where('user_id',Auth::user()->id)->get();
+        $images = InfoPositionVendeur::where('user_id',Auth::user()->id)->orderBy('created_at','desc')->get();
         return view('informationvendeur',compact('images'));
     }
     /**
@@ -113,7 +113,7 @@ class InformationVendeurController extends Controller
 
     public function archive()
     {
-        $images = InfoPositionVendeur::onlyTrashed()->where('user_id', Auth::user()->id)->get();
+        $images = InfoPositionVendeur::onlyTrashed()->where('user_id', Auth::user()->id)->orderBy('updated_at','desc')->get();
            return view('informationvendeur' , compact('images'));
     }
 

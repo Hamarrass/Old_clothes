@@ -109,12 +109,21 @@
                                                         <td>   </td>
                                                         <td>  <button type="button"  id="" class="edit badge badge-secondary" data-id="{{$image->id}}" >  Modify</button>  </td>
                                                         <td>
-                                                            <form action="{{route('infopositionvendeurs.destroy' ,["infopositionvendeur"=>$image->id])}}"   METHOD="POST">
-                                                                @csrf
-                                                                @method('delete')
+                                                            @if(!$image->deleted_at)
+                                                                    <form action="{{route('infopositionvendeurs.destroy' ,["infopositionvendeur"=>$image->id])}}"   METHOD="POST">
+                                                                        @csrf
+                                                                        @method('delete')
 
-                                                                <button type="submit"  class=" badge badge-danger"  >  delete</button>
-                                                            </form>
+                                                                        <button type="submit"  class=" badge badge-danger"  >  delete</button>
+                                                                    </form>
+                                                             @else
+                                                                    <form action="{{url('/infopositionvendeurs/'.$image->id.'/restore')}}"   METHOD="POST">
+                                                                        @csrf
+                                                                        @method('patch')
+
+                                                                        <button type="submit"  class=" badge badge-dark"  >  restaure </button>
+                                                                    </form>
+                                                             @endif
 
                                                         </td>
                                                     </tr>

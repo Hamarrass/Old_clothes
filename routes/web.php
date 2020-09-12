@@ -22,7 +22,7 @@ Auth::routes();
 //create image upload form
 Route::get('informationvendeurs/allinfoposition','InformationVendeurController@allinfoposition')->name('allinfoposition');
 Route::get('informationvendeurs/archive','InformationVendeurController@archive')->name('archive');
-//Route::patch('/infopositionvendeurs/{id}/restore','InfoPositionVendeurController@restore');
+Route::patch('/infopositionvendeurs/{id}/restore','InfoPositionVendeurController@restore');
 Route::resource('/informationvendeurs', 'InformationVendeurController');
 Route::resource('/infopositionvendeurs', 'InfoPositionVendeurController')->middleware('auth');
 
