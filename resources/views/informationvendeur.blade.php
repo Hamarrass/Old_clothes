@@ -121,7 +121,14 @@
                                                                         @csrf
                                                                         @method('patch')
 
-                                                                        <button type="submit"  class=" badge badge-dark"  >  restaure </button>
+                                                                        <button type="submit"  class=" badge badge-success"  >  restaure </button>
+                                                                    </form>
+
+                                                                    <form action="{{url('/infopositionvendeurs/'.$image->id.'/forcedelete')}}"   METHOD="POST">
+                                                                        @csrf
+                                                                        @method('delete')
+
+                                                                        <button type="submit"  class=" badge badge-dark"  >  Delete </button>
                                                                     </form>
                                                              @endif
 

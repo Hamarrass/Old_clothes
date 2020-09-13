@@ -134,9 +134,16 @@ class InfoPositionVendeurController extends Controller
     }
     public function restore($id){
 
-        dd('okay');
-        $infovendeur=InformationVendeur::find($id);
+        $infovendeur=InfoPositionVendeur::onlyTrashed()->whereId($id)->first();
         $infovendeur->restore();
+        return  redirect()->back();
+    }
+
+    public function forcedelete($id){
+
+
+        $infovendeur=InfoPositionVendeur::onlyTrashed()->whereId($id)->first();
+        $infovendeur->forceDelete();
         return  redirect()->back();
     }
 }

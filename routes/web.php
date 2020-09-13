@@ -23,6 +23,7 @@ Auth::routes();
 Route::get('informationvendeurs/allinfoposition','InformationVendeurController@allinfoposition')->name('allinfoposition');
 Route::get('informationvendeurs/archive','InformationVendeurController@archive')->name('archive');
 Route::patch('/infopositionvendeurs/{id}/restore','InfoPositionVendeurController@restore');
+Route::delete('/infopositionvendeurs/{id}/forcedelete','InfoPositionVendeurController@forcedelete');
 Route::resource('/informationvendeurs', 'InformationVendeurController');
 Route::resource('/infopositionvendeurs', 'InfoPositionVendeurController')->middleware('auth');
 

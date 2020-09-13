@@ -31,5 +31,9 @@ class InfoPositionVendeur extends Model
          static::restoring(function (InfoPositionVendeur $infoPositionVendeur){
              $infoPositionVendeur->information_vendeurs()->restore();
          });
+
+        static::forceDeleted(function (InfoPositionVendeur $infoPositionVendeur){
+            $infoPositionVendeur->information_vendeurs()->forceDelete();
+        });
     }
 }
