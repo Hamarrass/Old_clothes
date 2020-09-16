@@ -49,7 +49,7 @@
                                             <form id="form" action="{{route('infopositionvendeurs.store')}}" METHOD="POST"   enctype="multipart/form-data" >
                                                 @csrf
                                                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-{{--                                                <input type="hidden"  id="id" value="">--}}
+                                                <input type="hidden"  id="id" value="">
                                                 <div class="form-group">
                                                     <label for="ville">ville</label>
                                                     <input type="text" class="form-control" id="ville" name="ville" placeholder="ville" required  value="{{old('ville')}}">
@@ -192,6 +192,7 @@
         $(document).on('click', '.edit', function(){
 
             var data_id = $(this).data('id');
+
             var url     ="{{route('infopositionvendeurs.edit',['infopositionvendeur'=>'id'])}}";
             url     =url.replace('id',data_id);
             $('#edit').css("display", "none");

@@ -344,3 +344,4 @@
 </body>
 </html>
 @yield('jsinfovendeur')
+@yield('jsdisplay')

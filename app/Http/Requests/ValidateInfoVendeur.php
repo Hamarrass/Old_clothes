@@ -24,7 +24,7 @@ class ValidateInfoVendeur extends FormRequest
     public function rules()
     {
         return [
-            'ville'=>'required|min:2',
+            'ville'=>'required',
             'quartier'=>'required',
             'telephone'=>'required'
         ];

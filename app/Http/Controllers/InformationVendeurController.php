@@ -24,6 +24,8 @@ class InformationVendeurController extends Controller
     {
 
         $images = InfoPositionVendeur::where('user_id',Auth::user()->id)->orderBy('created_at','desc')->get();
+
+
         return view('informationvendeur',compact('images'));
     }
     /**

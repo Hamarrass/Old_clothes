@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Laravel</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!-- Styles -->
     <style>
         html, body {
             background-color: cornflowerblue;
@@ -109,6 +106,7 @@
 @php
     use App\InfoPositionVendeur;
 $images = InfoPositionVendeur::with('information_vendeurs')->get();
+
 @endphp
 
 @if (Route::has('login'))
@@ -190,13 +188,98 @@ $images = InfoPositionVendeur::with('information_vendeurs')->get();
                                             </tr>
                                             </tbody>
                                         </table>
+
+                              <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Modify</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form id="form" action=""   enctype="multipart/form-data" >
+                                                            @csrf
+
+                                                            <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+                                                                  <input type="hidden" name="id" id="id" value="{{$image->id}}">
+                                                            <div class="form-group">
+                                                                <label for="ville">ville</label>
+                                                                <input type="text" class="form-control" id="ville" name="ville" placeholder="ville" required  value="{{old('ville')}}">
+                                                                <div class="invalid-feedback">
+                                                                    Veuillez entrer la ville
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="quartier">Quartier</label>
+                                                                <input type="text" class="form-control" id="quartier"  name="quartier" placeholder="Quartier" required value="{{old('quartier')}}">
+                                                                <div class="invalid-feedback">
+                                                                    Veuillez entrer le Quartier
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="telephone">Tel</label>
+                                                                <input type="number" class="form-control" id="telephone" name="telephone" value="06" required value="{{old('telephone')}}">
+                                                                <div class="invalid-feedback">
+                                                                    Veuillez entrer  tel
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="mb-3 pics animation all 2">
+                                                                <div class="imgPreview"> </div>
+                                                            </div>
+
+                                                            @if(session()->has('statut')) <span style="color:green">Tres bien enrigestrer </span> @endif
+                                                            <button class="btn btn-danger btn-block mt-4" id="update"  style=" display: none;" >Update </button>
+
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                {{--   endModal--}}
+
                                         @foreach ($image->information_vendeurs()->get() as $im)
 
                                             <img src="{{$im->image_path}}" alt="" width="48.7%" height="180">
 
                                         @endforeach
                                         <br><br>
+
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    @can("update",$image)
+                                                    <button type="button" class=" edit badge badge-success" data-toggle="modal"  data-id="{{$image->id}}" data-target="#exampleModal">
+                                                        Modify
+                                                    </button>
+                                                    @endcan
+                                                </td>
+                                                <td>
+                                                    @can("delete",$image)
+                                                    <form action="{{route('infopositionvendeurs.destroy' ,["infopositionvendeur"=>$image->id])}}"   METHOD="POST">
+                                                        @csrf
+                                                        @method('delete')
+
+                                                        <button type="submit"  class=" badge badge-dark"  >  delete</button>
+                                                    </form>
+                                                     @endcan
+                                                </td>
+                                                <td>  {{$image->updated_at}}</td>
+                                            </tr>
+                                        </table>
+
+
+
+
                                         <hr  style="height:2px ; background-color: grey ; width:50%">
+
                                     @endforeach
 
                                 </div>
@@ -214,6 +297,77 @@ $images = InfoPositionVendeur::with('information_vendeurs')->get();
 
 
 
+
+
+
 </body>
 </html>
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+
+    $(document).on('click', '.edit', function(){
+
+        var data_id = $(this).data('id');
+
+
+        var url     ="{{route('infopositionvendeurs.edit',['infopositionvendeur'=>'id'])}}";
+        url     =url.replace('id',data_id);
+        $('#edit').css("display", "none");
+        $('#update').css("display", "block");
+        $.ajax({
+            url : url,
+
+            method:'get',
+            data : {
+                id : data_id
+            },
+
+            success:function(data)
+            {
+                $('#ville').val(data.ville);
+                $('#quartier').val(data.quartier);
+                $('#telephone').val(data.telephone);
+                $('#id').val(data.id)
+            }
+        })
+
+
+    });
+    $(document).on('click', '#update', function(){
+
+        var data_id = $("#id").val();
+
+
+        var url     ="{{route('infopositionvendeurs.update',['infopositionvendeur'=>'id'])}}";
+        url     =url.replace('id',data_id);
+        $('#edit').css("display", "block");
+        $('#update').css("display", "none");
+
+        $.ajax({
+            url : url,
+            method:'PUT',
+            data : {
+                _token:'{{ csrf_token() }}',
+                id        : data_id ,
+                ville     : $('#ville').val() ,
+                quartier  : $('#quartier').val() ,
+                telephone : $('#telephone').val()
+
+            },
+
+            success:function(data)
+            {
+
+            }
+        })
+
+
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
