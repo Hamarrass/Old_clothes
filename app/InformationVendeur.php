@@ -2,6 +2,8 @@
 
 namespace App;
 
+
+use App\Scopes\LatestScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -22,4 +24,7 @@ class InformationVendeur extends Model
         return $this->belongsTo('App\InfoPositionVendeur');
 
     }
+
+
+
 }

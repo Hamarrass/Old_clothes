@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\InfoPositionVendeur;
 use App\InformationVendeur;
 //use Illuminate\Auth\Access\Gate;
+use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,21 @@ use App\http\Requests\ValidateInfoVendeur;
 class InfoPositionVendeurController extends Controller
 {
 
+
+
+    public function index()
+    {
+        $images = InfoPositionVendeur::where('user_id',Auth::user()->id)->get();
+        $usermoresharer=User::userMoreSharer()->take(5)->get();
+
+        return view('informationvendeur',compact('images','usermoresharer'));
+    }
+
+    public  function welcome(){
+
+        $images = InfoPositionVendeur::with('information_vendeurs')->get();
+        return view('welcome',compact('images'));
+    }
 
     public function store(ValidateInfoVendeur $request)
     {
@@ -80,20 +96,28 @@ class InfoPositionVendeurController extends Controller
     }
 
 
-
-
     public function restore($id){
         $infovendeur=InfoPositionVendeur::onlyTrashed()->whereId($id)->first();
         $infovendeur->restore();
         return  redirect()->back();
     }
 
-
-
-
     public function forcedelete($id){
         $infovendeur=InfoPositionVendeur::onlyTrashed()->whereId($id)->first();
         $infovendeur->forceDelete();
         return  redirect()->back();
     }
+
+
+    public function archive()
+    {
+        $images = InfoPositionVendeur::onlyTrashed()->where('user_id', Auth::user()->id)->orderBy('updated_at','asc')->get();
+        return view('informationvendeur' , compact('images'));
+    }
+    public function allinfoposition()
+         {$usermoresharer=User::userMoreSharer()->take(5)->get();
+        $images = InfoPositionVendeur::withTrashed()->where('user_id', Auth::user()->id)->orderBy('updated_at','asc')->get();
+        return view('informationvendeur' , compact('images','usermoresharer'));
+    }
+
 }

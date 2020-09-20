@@ -103,16 +103,12 @@
     </style>
 </head>
 <body>
-@php
-    use App\InfoPositionVendeur;
-$images = InfoPositionVendeur::with('information_vendeurs')->get();
 
-@endphp
 
 @if (Route::has('login'))
     <div class="top-right links" style="color: black">
         @auth
-            <a href="{{ route('informationvendeurs.index') }} " >    <span  style="font-size: large ; color: black">Home</span></a>  <a href="{{ route('reclamations.index') }}"> <span  style="font-size: large; color: black">Relamation</span></a>
+            <a href="{{ route('infopositionvendeurs.index') }} " >    <span  style="font-size: large ; color: black">Home</span></a>  <a href="{{ route('reclamations.index') }}"> <span  style="font-size: large; color: black">Relamation</span></a>
         @else
             <a href="{{ route('login') }}">Login</a>
 
@@ -128,7 +124,7 @@ $images = InfoPositionVendeur::with('information_vendeurs')->get();
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">{{ __('Dashboard') }} </div>
 
                 <div class="card-body">
                     @if (session('status'))

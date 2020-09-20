@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use  Illuminate\Database\Eloquent\Builder;
+
 
 class User extends Authenticatable
 {
@@ -40,4 +42,9 @@ class User extends Authenticatable
     public  function info_position_vendeurs (){
         return $this->hasMany('App\InfoPositionVendeur');
     }
+
+    public  function scopeUserMoreSharer(Builder $query){
+        return $query->withCount('info_position_vendeurs')->orderBy('info_position_vendeurs_count','desc');
+    }
+
 }

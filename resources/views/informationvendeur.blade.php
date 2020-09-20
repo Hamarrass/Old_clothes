@@ -151,6 +151,14 @@
 
                                         </div>
 
+@forelse($usermoresharer  as $usermoreshare)
+    <p>{{$usermoreshare->name}}</p>
+    <p>{{$usermoreshare->info_position_vendeurs_count}}</p>
+      @empty
+     <p>nothing</p>
+    @endforelse
+
+
 
                                 </div>
                             </div>

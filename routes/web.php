@@ -1,5 +1,6 @@
 <?php
 
+use App\InfoPositionVendeur;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,17 +15,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $images = InfoPositionVendeur::with('information_vendeurs')->get();
+    return view('welcome',compact('images'));
 });
 
 Auth::routes();
 
 //create image upload form
-Route::get('informationvendeurs/allinfoposition','InformationVendeurController@allinfoposition')->name('allinfoposition');
-Route::get('informationvendeurs/archive','InformationVendeurController@archive')->name('archive');
+Route::resource('/informationvendeurs', 'InformationVendeurController');
+
+Route::get('infopositionvendeurs/allinfoposition','InfoPositionVendeurController@allinfoposition')->name('allinfoposition');
 Route::patch('/infopositionvendeurs/{id}/restore','InfoPositionVendeurController@restore');
 Route::delete('/infopositionvendeurs/{id}/forcedelete','InfoPositionVendeurController@forcedelete');
-Route::resource('/informationvendeurs', 'InformationVendeurController');
+Route::get('infopositionvendeurs/archive','InfoPositionVendeurController@archive')->name('archive');
+Route::get('infopositionvendeurs/welcome','InfoPositionVendeurController@welcome')->name('welcome');
 Route::resource('/infopositionvendeurs', 'InfoPositionVendeurController')->middleware('auth');
 
 
