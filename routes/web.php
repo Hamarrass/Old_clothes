@@ -38,6 +38,13 @@ Route::resource('/typereclamations', 'TypeReclamationController')->middleware('a
 //Hamarrass added this composer dumpautoload
 //php artisan queue:restart
 
+Route::get('/socret','HomeController@socret')
+      ->name('socret')
+      ->middleware('can:socret');
+//so this middlweare is very important because   it  secure  our route , farther  the gate
+// it is not enouph to secure a view or something like that
+//so we use the gate and the same time we use it in our  route
+
 
 //map
 Route::get('map/displayteams','TeamController@displayteams')->name('displayteams')->middleware('auth');;

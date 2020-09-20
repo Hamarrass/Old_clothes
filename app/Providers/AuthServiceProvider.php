@@ -26,7 +26,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
 //   Gate::resource('informativeness','App\Policies\InfoPositionVendeurPolicy');
-
+     Gate::define('socret',function ($user){
+         return $user->is_admin;
+     });
 
 //    Gate::define("informativeness.delete",function($user ,$nfoPositionvendeur){
 //        return $user->id ===   $nfoPositionvendeur->user_id;

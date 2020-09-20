@@ -27,10 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-
-
         return view('informationclient');
+    }
+
+    public  function socret(){
+        return view('socret');
     }
 
 

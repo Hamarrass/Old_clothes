@@ -232,7 +232,7 @@ $images = InfoPositionVendeur::with('information_vendeurs')->get();
                                                             </div>
 
                                                             @if(session()->has('statut')) <span style="color:green">Tres bien enrigestrer </span> @endif
-                                                            <button class="btn btn-danger btn-block mt-4" id="update"  style=" display: none;" >Update </button>
+                                                            <button  type="button" class="btn btn-danger btn-block mt-4" id="update"  style="" >Update </button>
 
                                                         </form>
                                                     </div>
@@ -256,7 +256,7 @@ $images = InfoPositionVendeur::with('information_vendeurs')->get();
                                             <tr>
                                                 <td>
                                                     @can("update",$image)
-                                                    <button type="button" class=" edit badge badge-success" data-toggle="modal"  data-id="{{$image->id}}" data-target="#exampleModal">
+                                                    <button type="button" class=" edit badge badge-success" data-toggle="modal"  data-id="{{$image->id}}"   data-ville="{{$image->ville}}"  data-quartier="{{$image->quartier}}" data-telephone="{{$image->telephone}}" data-target="#exampleModal">
                                                         Modify
                                                     </button>
                                                     @endcan
@@ -312,28 +312,14 @@ $images = InfoPositionVendeur::with('information_vendeurs')->get();
     $(document).on('click', '.edit', function(){
 
         var data_id = $(this).data('id');
+        var data_ville     = $(this).data('ville');
+        var data_quartier  = $(this).data('quartier');
+        var data_telephone = $(this).data('telephone');
 
-
-        var url     ="{{route('infopositionvendeurs.edit',['infopositionvendeur'=>'id'])}}";
-        url     =url.replace('id',data_id);
-        $('#edit').css("display", "none");
-        $('#update').css("display", "block");
-        $.ajax({
-            url : url,
-
-            method:'get',
-            data : {
-                id : data_id
-            },
-
-            success:function(data)
-            {
-                $('#ville').val(data.ville);
-                $('#quartier').val(data.quartier);
-                $('#telephone').val(data.telephone);
-                $('#id').val(data.id)
-            }
-        })
+        $('#ville').val(data_ville);
+        $('#quartier').val(data_quartier);
+        $('#telephone').val(data_telephone );
+        $('#id').val(data_id)
 
 
     });

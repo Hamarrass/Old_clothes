@@ -38,9 +38,10 @@
                                         </div>
                                     @endif
                                   <div class="col-*-*">
-                                      <a href="{{route('map.index')}}" class="link btn btn-danger" > Click here to show a map </a>
-                                      <a href="{{route('archive')}}" class="link btn btn-danger"> Archive      </a>
-                                      <a href="{{route('allinfoposition')}}" class="link btn btn-danger"> ALL  </a>
+                                      <a href="{{route('map.index')}}" class="link btn btn-danger" >       Click here to show a map   </a>
+                                      <a href="{{route('archive')}}" class="link btn btn-danger">          Archive                    </a>
+                                      <a href="{{route('allinfoposition')}}" class="link btn btn-danger">  ALL                        </a>
+                                      @can('socret')<a href="{{route('socret')}}" class="link btn btn-danger">           Socret                     </a> @endcan
                                       <p>{{$images->count()}}</p>
                                   </div>
 {{--                                        **********************************************************start formulaire *************************************************************--}}
