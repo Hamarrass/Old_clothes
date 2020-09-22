@@ -19,8 +19,13 @@ class InfoPositionVendeurController extends Controller
 
     public function index()
     {
+
         $images = InfoPositionVendeur::where('user_id',Auth::user()->id)->get();
+
         $usermoresharer=User::userMoreSharer()->take(5)->get();
+
+        $UserActiveLastMonth=User::userActiveLastMonth()->take(5)->get();
+        dd($UserActiveLastMonth);
 
         return view('informationvendeur',compact('images','usermoresharer'));
     }
