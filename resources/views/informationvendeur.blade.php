@@ -88,7 +88,18 @@
                                             <button class="btn btn-danger btn-block mt-4" id="update"  style=" display: none;" >Update </button>
 
                                             <br><bR>
+
                                         @foreach ($images as $image)
+                                            @if($image->created_at->diffInHours()<1)
+                                               @component('components.badge')
+                                                   new
+                                               @endcomponent
+                                            @else
+                                               @component('components.badge',['type'=>'danger'])
+                                                   Old
+                                                @endcomponent
+                                            @endif
+
                                                 <table class="table table-sm">
                                                     <thead>
 

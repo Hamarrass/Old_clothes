@@ -25,9 +25,9 @@ class InfoPositionVendeurController extends Controller
         $usermoresharer=User::userMoreSharer()->take(5)->get();
 
         $UserActiveLastMonth=User::userActiveLastMonth()->take(5)->get();
-        dd($UserActiveLastMonth);
+//        dd($UserActiveLastMonth);
 
-        return view('informationvendeur',compact('images','usermoresharer'));
+        return view('informationvendeur',compact('images','usermoresharer','UserActiveLastMonth'));
     }
 
     public  function welcome(){

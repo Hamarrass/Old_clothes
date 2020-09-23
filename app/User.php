@@ -50,7 +50,7 @@ public  function scopeUserMoreSharer(Builder $query){
 
     public function scopeUserActiveLastMonth(Builder $query){
       return $query->withCount(['info_position_vendeurs'=>function(Builder $query){
-          return $query->whereBetween(static::CREATED_AT,[now()->subHours(3),now()]);
+          return $query->whereBetween(static::CREATED_AT,[now()->subMonth(1),now()]);
       }])->having('info_position_vendeurs_count','>','0')->orderBy('created_at','desc');
     }
 
